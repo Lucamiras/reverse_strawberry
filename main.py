@@ -1,29 +1,22 @@
+import streamlit as st
 from langchain_ollama import ChatOllama
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from src.agents import Agent
+from src.prompts import raspberry_agents
 
 
-prompt = PromptTemplate(
-    template="""
-        You are a helpful assistant. \n
-        When asked or talked to, respond in a friendly, sometimes funny manner. \n
-        If you don't know the answer, say so. \n
-        Here's what the user asked: {user_prompt}
-    """,
-    input_variables=['user_prompt']
+agent_1 = Agent(
+    name="Agent1",
+    prompt=raspberry_agents["Agent1"],
 )
 
-llm = ChatOllama(
-    model="llama3.1",
-    temperature=0.7
+agent_2 = Agent(
+    name="Agent2",
+    prompt=raspberry_agents["Agent2"],
 )
 
-rag_chain = prompt | llm | StrOutputParser()
+user_prompt = "Hi Agent, could you count the letters 'r' in the word raspberry?"
 
-user_prompt = "Hi Llama, how are you?"
-
-response = rag_chain.invoke({
-    "user_prompt": user_prompt
-})
-
-print(response)
+response_1 = agent_1.deploy_agent(user_prompt)
+response_2 = agent_2.deploy_agent(f"What the user initially asked: {user_prompt}. What Agent 1 proposes: {response_1}")
