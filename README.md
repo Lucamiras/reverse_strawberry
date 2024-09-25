@@ -1,7 +1,7 @@
 # Reverse-engineering the strawberry
 An attempt at implementing chain-of-thought reasoning similar to what the o1 model can do. If not possible, at least I learned something about langchain ...
 
-![alt_text](strbrry.jpeg "Strawberry in reverse")
+<img src="strbrry.jpeg" alt="drawing" width="200"/>
 
 ## Steps:
 1. Use o1 and investigate the thought process
